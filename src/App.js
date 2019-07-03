@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Menu from './components/menu/Menu';
+import NoteSection from './components/note-section/NoteSection';
+import SectionForm from './components/form/SectionForm';
+import TaskForm from './components/form/TaskForm';
+import db from './db';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  renderSections = () => {
+    let sections = db.getAllSection();
+    sections = sections.map((val,key) => <NoteSection sectionName={val} key={key}></NoteSection>);
+    return sections
+  }
+
+  render() {
+    return (
+      <div className="note-board">
+        <Menu></Menu>
+        <SectionForm></SectionForm>
+        <TaskForm></TaskForm>
+
+        <div className="board-content">
+          {
+            this.renderSections()
+          }
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
