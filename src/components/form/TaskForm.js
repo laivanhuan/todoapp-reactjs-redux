@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import db from '../../db';
 
 class TaskForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            isVisible: true,
+            isVisibale: true,
             taskData: {
                 selectTask: '',
                 taskName: ''
@@ -28,37 +29,45 @@ class TaskForm extends Component {
         let task = this.state.taskData;
         this.props.addNewTask(task.selectTask, task.taskName);
     }
+
+    renderOptions = () => {
+        let options = db.getAllSection();
+        options = options.map((val,key) => <option value={val} key={key}>{val}</option>);
+        return options
+    }
+
+    componentWillMount(){
+        this.setState({
+            isVisibale: this.props.isVisibale
+        });
+    }
     
     render() {
-        return (
-            <div className="form">
-                <form method="get" acceptCharset="utf-8" onChange={(event) => this.isChange(event)}>
-                    <div className="item">
-                        <p className="label">Section: </p>
-                        <select name="selectTask">
-                            <option value={"Section 1"}>Section 1: To do list</option>
-                            <option value={"Section 1"}>Section 1: To do list</option>
-                            <option value={3}>Section 1: To do list</option>
-                            <option value={4}>Section 1: To do list</option>
-                            <option value={5}>Section 1: To do list</option>
-                            <option value={1}>Section 1: To do list</option>
-                            <option value={2}>Section 1: To do list</option>
-                            <option value={3}>Section 1: To do list</option>
-                            <option value={4}>Section 1: To do list</option>
-                            <option value={5}>Section 1: To do list</option>
-                        </select>
-                    </div>
-                    <div className="item">
-                        <p className="label">Task Name: </p>
-                        <input type="text" name="taskName" placeholder="Task Name" />
-                    </div>
-                    <div className="btn-submit" onClick={() => this.addTask()}>
-                        <span>Create</span>
-                    </div>
-                </form>
-            </div>
+        if(this.state.isVisibale){
+            return (
+                <div className="form">
+                    <form method="get" acceptCharset="utf-8" onChange={(event) => this.isChange(event)}>
+                        <div className="item">
+                            <p className="label">Section: </p>
+                            <select name="selectTask">
+                                <option>Choose a task</option>
+                                {
+                                    this.renderOptions()
+                                }
+                            </select>
+                        </div>
+                        <div className="item">
+                            <p className="label">Task Name: </p>
+                            <input type="text" name="taskName" placeholder="Task Name" />
+                        </div>
+                        <div className="btn-submit" onClick={() => this.addTask()}>
+                            <span>Create</span>
+                        </div>
+                    </form>
+                </div>
 
-        );
+            );
+        }else return(<div></div>)
     }
 }
 

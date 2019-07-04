@@ -4,9 +4,24 @@ import db from '../../db';
 
 class NoteSection extends Component {
 
-    renderNotes = () => {
+    constructor(props) {
+        super(props);
+        this.state = {
+            arrNote: []
+        }
+    }
+    
+
+    componentWillMount(){
         let arrNotes = db.getAllTasks(this.props.sectionName);
-        return arrNotes.map((val,key) => <NoteRow taskName={val.taskName} key={val.id}></NoteRow>)
+        this.setState({
+            arrNotes
+        });
+    }
+
+    renderNotes = () => {
+        
+        return this.state.arrNotes.map((val,key) => <NoteRow taskName={val.taskName} key={val.id}></NoteRow>)
     }
 
     render() {

@@ -2,8 +2,8 @@ import db from './db';
 const redux  = require('redux');
 
 const noteInitialState = {
-    isVisibaleSectionForm: true,
-    isVisibleTaskForm: true
+    isVisibaleSectionForm: false,
+    isVisibleTaskForm: false
 }
 const allReducer = (state = noteInitialState, action) => {
     switch (action.type) {
@@ -13,6 +13,10 @@ const allReducer = (state = noteInitialState, action) => {
         case "ADD_NEW_TASK":
             db.addNewTask(action.sectionName,action.taskName);
             return state
+        case "SHOW_TASK_FORM":
+            return {...state,isVisibleTaskForm: !state.isVisibleTaskForm}
+        case "SHOW_SECTION_FORM":
+            return {...state,isVisibaleSectionForm: !state.isVisibaleSectionForm}
         default:
             return state
     }
