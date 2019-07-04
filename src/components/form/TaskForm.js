@@ -28,6 +28,7 @@ class TaskForm extends Component {
     addTask = () => {
         let task = this.state.taskData;
         this.props.addNewTask(task.selectTask, task.taskName);
+        this.props.showTaskForm();
     }
 
     renderOptions = () => {
@@ -81,6 +82,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         addNewTask: (sectionName, taskName) => {
             dispatch({type: "ADD_NEW_TASK", sectionName, taskName});
+        },
+        showTaskForm: () => {
+            dispatch({type: "SHOW_TASK_FORM"});
         }
     }
 }

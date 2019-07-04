@@ -5,13 +5,13 @@ class Menu extends Component {
     render() {
         return (
             <div className="board-header">
-                <div className="btn-control-group" onClick={this.props.showSectionForm}>
+                <div className="btn-control-group" >
                     <div className="btn-control">
-                        <i className="far fa-calendar-plus" />
+                        <i className="far fa-calendar-plus" onClick={this.props.showSectionForm}/>
                         <span>Add Section</span>
                     </div>
-                    <div className="btn-control" onClick={this.props.showTaskForm}>
-                        <i className="fas fa-plus-circle" />
+                    <div className="btn-control" >
+                        <i className="fas fa-plus-circle" onClick={this.props.showTaskForm}/>
                         <span>Add Task</span>
                     </div>
                     <div className="btn-control">

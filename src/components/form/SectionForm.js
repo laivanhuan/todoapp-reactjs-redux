@@ -20,6 +20,7 @@ class SectionForm extends Component {
     addNewSection = () => {
         let sectionName = this.state.sectionName;
         this.props.addSection(sectionName); 
+        this.props.showSectionForm();
     }
 
     render() {
@@ -50,6 +51,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         addSection: (sectionName) => {
             dispatch({type: "ADD_NEW_SECTION",sectionName})
+        },
+        showSectionForm: () => {
+            dispatch({type: "SHOW_SECTION_FORM"});
         }
     }
 }
