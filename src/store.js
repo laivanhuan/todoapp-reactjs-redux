@@ -3,13 +3,14 @@ const redux  = require('redux');
 
 const noteInitialState = {
     isVisibaleSectionForm: false,
-    isVisibleTaskForm: false
+    isVisibleTaskForm: false,
+    sections: db.getAllSection()
 }
 const allReducer = (state = noteInitialState, action) => {
     switch (action.type) {
         case "ADD_NEW_SECTION":
             db.addSection(action.sectionName);
-            return state
+            return {...state,sections: db.getAllSection()}
         case "ADD_NEW_TASK":
             db.addNewTask(action.sectionName,action.taskName);
             return state

@@ -4,14 +4,11 @@ import Menu from './components/menu/Menu';
 import NoteSection from './components/note-section/NoteSection';
 import SectionForm from './components/form/SectionForm';
 import TaskForm from './components/form/TaskForm';
-import db from './db';
 
 class App extends Component {
-
+ 
   renderSections = () => {
-    let sections = db.getAllSection();
-    sections = sections.map((val,key) => <NoteSection sectionName={val} key={key}></NoteSection>);
-    return sections
+    return this.props.sections.map((val,key) => <NoteSection sectionName={val} key={key}></NoteSection>);
   }
 
   renderForm = (cond, obj) => {
@@ -38,7 +35,8 @@ class App extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     isVisibaleSectionForm: state.isVisibaleSectionForm,
-    isVisibleTaskForm: state.isVisibleTaskForm
+    isVisibleTaskForm: state.isVisibleTaskForm,
+    sections: state.sections
   }
 }
 
